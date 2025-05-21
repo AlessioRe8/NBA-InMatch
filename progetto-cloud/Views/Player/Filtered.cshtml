@@ -1,0 +1,68 @@
+﻿@model progetto_cloud.ViewModels.PlayerFilterViewModel
+@{
+  var currentPage = Model.PageNumber;
+  var next = Model.NextCursor;
+}
+<h2>Filtra Giocatori</h2>
+<form method="get" class="row g-3 mb-4">
+  <input type="hidden" name="cursor" value="0" />
+  <input type="hidden" name="pageNumber" value="1" />
+
+  <div class="col-auto">
+    <label class="form-label">Search</label>
+    <input name="search" class="form-control" value="@Model.Search" />
+  </div>
+  <div class="col-auto">
+    <label class="form-label">Team IDs (CSV)</label>
+    <input name="teamIds" class="form-control" value="@Model.TeamIds" placeholder="1,2" />
+  </div>
+  <div class="col-auto">
+    <label class="form-label">Player IDs (CSV)</label>
+    <input name="playerIds" class="form-control" value="@Model.PlayerIds" placeholder="10,20" />
+  </div>
+  <div class="col-auto align-self-end">
+    <button type="submit" class="btn btn-primary">Filtra</button>
+  </div>
+</form>
+
+<table class="table table-striped">
+  <thead><tr><th>Name</th><th>Team</th><th>Position</th><th></th></tr></thead>
+  <tbody>
+  @foreach(var player in Model.Players) {
+    <tr>
+      <td>@player.FirstName @player.LastName</td>
+      <td>@player.Team?.FullName</td>
+      <td>@player.Position</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@player.Id"
+                       class="btn btn-sm btn-outline-primary"
+                       title="Dettagli">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </td>
+    </tr>
+  }
+  </tbody>
+</table>
+
+<nav class="pagination">
+  <a class="btn btn-secondary @(currentPage<=1?"disabled":"")"
+     asp-action="Filtered"
+     asp-route-cursor="0"
+     asp-route-pageNumber="@(currentPage-1)"
+     asp-route-search="@Model.Search"
+     asp-route-teamIds="@Model.TeamIds"
+     asp-route-playerIds="@Model.PlayerIds">
+    ‹
+  </a>
+  <span class="mx-2">Pagina @currentPage</span>
+  <a class="btn btn-secondary @(next==null?"disabled":"")"
+     asp-action="Filtered"
+     asp-route-cursor="@next"
+     asp-route-pageNumber="@(currentPage+1)"
+     asp-route-search="@Model.Search"
+     asp-route-teamIds="@Model.TeamIds"
+     asp-route-playerIds="@Model.PlayerIds">
+    ›
+  </a>
+</nav>

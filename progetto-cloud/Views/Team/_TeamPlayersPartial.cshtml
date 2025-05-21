@@ -1,0 +1,35 @@
+﻿@model List<progetto_cloud.Models.Player>
+@{
+    int? nextCursor = ViewData["NextCursor"] as int?;
+    int teamId = (int)ViewData["TeamId"];
+}
+
+@foreach (var player in Model)
+{
+    <tr>
+                <td>@player.FirstName @player.LastName</td>
+                <td>@player.JerseyNumber</td>
+                <td>@player.Position</td>
+        <td>
+            <a asp-controller="Player" asp-action="Details" asp-route-id="@player.Id"
+               class="btn btn-sm btn-outline-primary"
+               title="Dettagli">
+                <i class="bi bi-search"></i>
+            </a>
+        </td>
+    </tr>
+}
+
+@if (nextCursor != null)
+{
+    <tr id="load-more-row">
+        <td colspan="1" class="text-center">
+            <button id="loadMoreBtn"
+                    class="btn btn-outline-primary"
+                    data-team="@teamId"
+                    data-cursor="@nextCursor">
+                Carica altri…
+            </button>
+        </td>
+    </tr>
+}

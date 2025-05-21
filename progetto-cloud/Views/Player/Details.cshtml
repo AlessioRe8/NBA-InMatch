@@ -1,0 +1,21 @@
+﻿@model progetto_cloud.Models.Player
+
+<h2>Dettagli Giocatore @Model.FirstName @Model.LastName (#@Model.Id)</h2>
+<ul>
+    <li><strong>Nome:</strong> @Model.FirstName</li>
+    <li><strong>Cognome:</strong> @Model.LastName</li>
+    <li><strong>Posizione:</strong> @Model.Position</li>
+    <li><strong>Squadra:</strong>
+        <a asp-controller="Team" asp-action="Details" asp-route-id="@Model.Team.Id">
+            @Model.Team.FullName <i class="bi bi-box-arrow-up-right"></i>
+            </a>
+            </li>
+    <li><strong>Altezza (feet):</strong> @Model.Height</li>
+    <li><strong>Peso (pounds):</strong> @Model.Weight</li>
+    <li><strong>Numero di Maglia:</strong> @Model.JerseyNumber</li>
+    <li><strong>Paese di Provenienza:</strong> @Model.Country</li>
+    <li><strong>College di Provenienza:</strong> @Model.College</li>
+    <li><strong>Anno di Draft (N. scelta):</strong> @Model.DraftYear (@Model.DraftNumber)</li>
+</ul>
+
+<button class="btn btn-secondary" onclick="window.history.back();">← Torna alla lista</button>

@@ -1,0 +1,23 @@
+﻿@model progetto_cloud.Models.Game
+
+<h2>Dettagli Partita n. @Model.Id</h2>
+<ul>
+    <li><strong>Data:</strong> @Model.Date.ToShortDateString()</li>
+    <li><strong>Stagione:</strong> @Model.Season</li>
+    <li><strong>Stato:</strong> @Model.Status</li>
+    <li><strong>Postseason:</strong> @(Model.Postseason ? "Sì" : "No")</li>
+    <li>
+        <strong>Squadra di Casa:</strong><a asp-controller="Team" asp-action="Details" asp-route-id="@Model.HomeTeam.Id">
+            @Model.HomeTeam.FullName <i class="bi bi-box-arrow-up-right"></i>
+        </a> (@Model.HomeTeamScore)
+    </li>
+    <li>
+        <strong>Squadra Ospite:</strong><a asp-controller="Team" asp-action="Details" asp-route-id="@Model.VisitorTeam.Id">
+            @Model.VisitorTeam.FullName <i class="bi bi-box-arrow-up-right"></i>
+        </a> (@Model.VisitorTeamScore)
+    </li>
+    <li><strong>Periodo:</strong> @Model.Period</li>
+    <li><strong>Tempo:</strong> @Model.Time</li>
+</ul>
+
+<button class="btn btn-secondary" onclick="window.history.back();">← Torna alla lista</button>

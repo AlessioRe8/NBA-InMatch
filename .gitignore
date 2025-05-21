@@ -1,0 +1,21 @@
+# Build artifacts
+**/bin/
+**/obj/
+
+# Visual Studio
+.vs/
+*.suo
+*.user
+*.userosscache
+*.vssscc
+
+# Visual Studio Code
+.vscode/
+
+# Publish artefacts
+**/publish/
+
+# NuGet
+*.nupkg
+.nuget/
+packages/

@@ -1,0 +1,52 @@
+﻿@* @model progetto_cloud.Models.Team *@
+@model progetto_cloud.ViewModels.TeamDetailsViewModel
+
+<h2>Dettagli Squadra @Model.Team.FullName (#@Model.Team.Id)</h2>
+<ul>
+    <li><strong>Nome:</strong> @Model.Team.FullName</li>
+    <li><strong>Abbreviazione:</strong> @Model.Team.Abbreviation</li>
+    <li><strong>Città:</strong> @Model.Team.City</li>
+    <li><strong>Conference:</strong> @Model.Team.Conference</li>
+    <li><strong>Divisione:</strong> @Model.Team.Division</li>
+</ul>
+
+<h3>Giocatori @Model.Team.FullName</h3>
+
+<table class="table" id="playersTable">
+    <thead><tr>
+        <th>Nome</th>
+        <th>Numero di Maglia</th>
+        <th>Posizione</th>
+        <th></th>
+    </tr></thead>
+    <tbody id="playersBody">
+        @{
+            // Passa i valori via ViewData che la partial poi leggerà:
+            ViewData["NextCursor"] = Model.NextCursor;
+            ViewData["TeamId"] = Model.Team.Id;
+        }
+        @Html.Partial("_TeamPlayersPartial", Model.Players)
+    </tbody>
+</table>
+
+@section Scripts {
+    <script>
+        document.addEventListener("click", function(e) {
+          if (e.target && e.target.id === "loadMoreBtn") {
+            const btn      = e.target;
+            const teamId   = btn.getAttribute("data-team");
+            const cursor   = btn.getAttribute("data-cursor");
+            fetch(`@Url.Action("PlayersPartial", "Team")?teamId=${teamId}&cursor=${cursor}`)
+              .then(res => res.text())
+              .then(html => {
+                const trLoad = document.getElementById("load-more-row");
+                if (trLoad) trLoad.remove();
+                document.getElementById("playersBody")
+                        .insertAdjacentHTML("beforeend", html);
+              });
+          }
+        });
+    </script>
+}
+
+<button class="btn btn-secondary" onclick="window.history.back();">← Torna alla lista</button>

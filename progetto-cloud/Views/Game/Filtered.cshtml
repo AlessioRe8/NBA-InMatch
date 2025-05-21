@@ -1,0 +1,94 @@
+﻿@model progetto_cloud.ViewModels.GameFilterViewModel
+@{
+    int currentPage = Model.PageNumber;
+    int? nextCursor = Model.NextCursor;
+    int? prevCursor = Model.PreviousCursor;
+}
+
+<h2>Filtra Partite NBA</h2>
+<form method="get" class="row g-3 mb-4">
+
+  <!-- Mantieni cursor e pageNumber su nuovo filtro -->
+  <input type="hidden" name="cursor" value="0" />
+  <input type="hidden" name="pageNumber" value="1" />
+
+  <div class="col-auto">
+    <label class="form-label">Seasons (CSV)</label>
+    <input name="seasons" class="form-control" value="@Model.Seasons" placeholder="es:2022,2023"/>
+  </div>
+  <div class="col-auto">
+    <label class="form-label">Team IDs (CSV)</label>
+    <input name="teamIds" class="form-control" value="@Model.TeamIds" placeholder="es:1,2"/>
+  </div>
+  <div class="col-auto form-check">
+    <input class="form-check-input" type="checkbox" name="postseason" value="true"
+           @(Model.ShowPostseason == true ? "checked" : "") />
+    <label class="form-check-label">Solo Postseason</label>
+  </div>
+  <div class="col-auto">
+    <label class="form-label">Da data</label>
+    <input class="form-control" type="date" name="startDate"
+           value="@(Model.StartDate?.ToString("yyyy-MM-dd") ?? "")"/>
+  </div>
+  <div class="col-auto">
+    <label class="form-label">A data</label>
+    <input class="form-control" type="date" name="endDate"
+           value="@(Model.EndDate?.ToString("yyyy-MM-dd") ?? "")"/>
+  </div>
+  <div class="col-auto align-self-end">
+    <button type="submit" class="btn btn-primary">Filtra</button>
+  </div>
+</form>
+
+<table class="table">
+  <thead><tr><th>Date</th><th>Home</th><th>Visitor</th><th>Score</th><th></th></tr></thead>
+  <tbody>
+  @foreach(var game in Model.Games) {
+    <tr>
+      <td>@game.Date.ToShortDateString()</td>
+      <td>@game.HomeTeam.FullName</td>
+      <td>@game.VisitorTeam.FullName</td>
+      <td>@game.HomeTeamScore - @game.VisitorTeamScore</td>
+      <td>
+                    <a asp-action="Details" asp-route-id="@game.Id"
+                       class="btn btn-sm btn-outline-primary"
+                       title="Dettagli">
+                        <i class="bi bi-search"></i>
+                    </a>
+      </td>
+    </tr>
+  }
+  </tbody>
+</table>
+
+<nav aria-label="Pagination">
+  <ul class="pagination">
+        <li class="page-item @(prevCursor == null && currentPage == 1 ? "disabled" : "")">
+      <a class="page-link"
+         asp-action="Filtered"
+         asp-route-cursor="@(currentPage == 2 ? 0 : prevCursor)"
+         asp-route-pageNumber="@(currentPage-1)"
+         asp-route-seasons="@Model.Seasons"
+         asp-route-teamIds="@Model.TeamIds"
+         asp-route-postseason="@(Model.ShowPostseason ?? false)"
+         asp-route-startDate="@(Model.StartDate?.ToString("yyyy-MM-dd"))"
+         asp-route-endDate="@(Model.EndDate?.ToString("yyyy-MM-dd"))">
+        ‹
+      </a>
+    </li>
+    <li class="page-item disabled"><span class="page-link">Pagina @currentPage</span></li>
+    <li class="page-item @(nextCursor == null ? "disabled" : "")">
+      <a class="page-link"
+         asp-action="Filtered"
+         asp-route-cursor="@nextCursor"
+         asp-route-pageNumber="@(currentPage+1)"
+         asp-route-seasons="@Model.Seasons"
+         asp-route-teamIds="@Model.TeamIds"
+         asp-route-postseason="@(Model.ShowPostseason ?? false)"
+         asp-route-startDate="@(Model.StartDate?.ToString("yyyy-MM-dd"))"
+         asp-route-endDate="@(Model.EndDate?.ToString("yyyy-MM-dd"))">
+        ›
+      </a>
+    </li>
+  </ul>
+</nav>

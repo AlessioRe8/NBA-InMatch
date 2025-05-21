@@ -1,0 +1,71 @@
+﻿@model IEnumerable<progetto_cloud.Models.Game>
+@{
+    int pageSize = 25;
+    int currentPage = ViewBag.PageNumber;
+    int? nextCursor = ViewBag.NextCursor;
+    int? prevCursor = ViewBag.PreviousCursor;
+}
+
+<h2>Elenco Partite NBA</h2>
+
+<p>
+    <a asp-action="Filtered" class="btn btn-primary">
+        Filtri
+    </a>
+</p>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th>Date</th>
+            <th>Home Team</th>
+            <th>Visitor Team</th>
+            <th>Score</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var game in Model)
+        {
+            <tr>
+                <td>@game.Date.ToShortDateString()</td>
+                <td>@game.HomeTeam.FullName</td>
+                <td>@game.VisitorTeam.FullName</td>
+                <td>@game.HomeTeamScore - @game.VisitorTeamScore</td>
+                <td>
+                    <a asp-action="Details" asp-route-id="@game.Id"
+                       class="btn btn-sm btn-outline-primary"
+                       title="Dettagli">
+                        <i class="bi bi-search"></i>
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<nav aria-label="Pagination">
+    <ul class="pagination">
+        <li class="page-item @(prevCursor == null && currentPage == 1 ? "disabled" : "")">
+            <a class="page-link"
+               asp-action="All"
+               asp-route-cursor="@(currentPage == 2 ? 0 : prevCursor)"
+               asp-route-pageNumber="@(currentPage - 1)">
+                ‹
+            </a>
+        </li>
+
+        <li class="page-item disabled">
+            <span class="page-link">Pagina @currentPage</span>
+        </li>
+
+        <li class="page-item @(nextCursor == null ? "disabled" : "")">
+            <a class="page-link"
+               asp-action="All"
+               asp-route-cursor="@nextCursor"
+               asp-route-pageNumber="@(currentPage + 1)">
+                ›
+            </a>
+        </li>
+    </ul>
+</nav>

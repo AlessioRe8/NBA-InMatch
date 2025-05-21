@@ -1,0 +1,31 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35913.81
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "progetto-cloud", "progetto-cloud\progetto-cloud.csproj", "{0878E4B5-EA61-8571-F3E1-6D247D93FCB1}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "progetto-cloud.Api", "progetto-cloud.Api\progetto-cloud.Api.csproj", "{5C97AFEF-5421-41B1-57D1-B2098AB2BEBD}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0878E4B5-EA61-8571-F3E1-6D247D93FCB1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0878E4B5-EA61-8571-F3E1-6D247D93FCB1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0878E4B5-EA61-8571-F3E1-6D247D93FCB1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0878E4B5-EA61-8571-F3E1-6D247D93FCB1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C97AFEF-5421-41B1-57D1-B2098AB2BEBD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C97AFEF-5421-41B1-57D1-B2098AB2BEBD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C97AFEF-5421-41B1-57D1-B2098AB2BEBD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C97AFEF-5421-41B1-57D1-B2098AB2BEBD}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {5EC5CC06-0BE1-475A-BD00-10435CDA73C0}
+	EndGlobalSection
+EndGlobal
