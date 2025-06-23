@@ -1,5 +1,5 @@
 ## NBA-InMatch Application including MVC and API.
-This is an application that consists in MVC and Rest API. 
+This is an application that consists in MVC and Rest API (developed in ASP .NET Core 8.0). 
 To navigate the MVC you can just run the CS application.
 To access API, SwaggerUI is recommended. (if you run the API from a local IDE, it will automatically run Swagger)
 
